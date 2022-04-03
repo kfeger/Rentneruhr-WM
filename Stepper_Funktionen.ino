@@ -45,6 +45,13 @@ void homeStepper(void) {
   HomeRun = false;
 }
 
+void FullCCW(void) {
+  moveStepper(0);
+  moveStepper(OFFSET_STEPPER);
+  stepper.setCurrentPosition(MIN_POS);
+  Serial.println("FullLeft: Stepper auf Soft-Null");
+}
+
 void HalfPos(void) {
   moveStepper(2048);
   moveStepper(HALF_POS);
@@ -53,7 +60,7 @@ void HalfPos(void) {
 void CalcNewPosition(void) {
   int NextPosition = 0;
   int HourPos = 0;
-  DayIndex = tm.tm_wday;  // Achtung: 0 = Sonntag lt. time.h
+  DayIndex = tm.tm_wday;  // Achtung: 0 = Sonntag lt. ntp
   // auf Skale aber 6 = Sonntag!
   if (DayIndex != 0)      // Index auf Skala umrechnen
     DayIndex -= 1;        // Mo = 0

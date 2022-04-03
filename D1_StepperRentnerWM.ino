@@ -1,9 +1,10 @@
+
 /*
    Rentner-Uhr.
-   siehe https://github.com/kfeger/Rentneruhr
+   siehe https://github.com/kfeger/Rentneruhr-WM
    Sinn ist die Anzeige des Wochentags auf einer
    großen Skala.
-   Die Position wird alle 3 Stunden aktualisiert.
+   Die Position wird jede Stunde aktualisiert.
    Die jeweiligen 0:00-Positionen wurden wegen Ungenauigkeite per Hand
    ausgemessen und festgelegt.
    Die Uhrzeit kommt von NTP.
@@ -31,7 +32,7 @@ const int stepsPerRevolution = 2048;  // change this to fit the number of steps 
 #define MIN_POS 0
 #define HALF_POS 1024
 #define QUATER_POS 512
-#define OFFSET_STEPPER 188  // vom Anschlag aus
+#define OFFSET_STEPPER 189  // vom Anschlag aus
 #define STEPS_PER_REVOLUTION 2048
 //#define STEPPER_OFF
 bool HomeRun = false;
@@ -42,22 +43,24 @@ int OldPosition, CurrentPosition;
 const int Day0Position[8] = {
   0,
   241,  // Di 0h
-  478,  // Mi
-  706,  // Do
+  473,  // Mi
+  701,  // Do
   934,  // Fr
   1178, // Sa
   1417, // So
   1672
 };
+
 const int StepWidth[7] = {
-  10,
-  10,
-  9,
-  9,
-  10,
-  10,
-  10
+  9,  // Mo
+  9,  // Di
+  8,  // Mi
+  8,  // Do
+  10, // Fr
+  9,  // Sa
+  9   // So
 };
+
 int DayIndex = 0;
 
 const char* Wochentag[8] = {
@@ -169,7 +172,7 @@ void setup() {
   serverUpdater.setup(&server);
   server.begin();
 
-  homeStepper();
+  FullCCW();
   Serial.println("Geht los!");
   DayStepDemo();
   delay(1000);
