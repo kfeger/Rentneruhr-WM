@@ -39,24 +39,25 @@ bool HomeRun = false;
 bool CalRun = true;
 int OldPosition, CurrentPosition;
 
-// Definitionen edr 0:00h-Position
+// Definitionen der 0:00h-Position
+#define OFFSET_STEPPER 187  // Mo 0h, vom Anschlag aus
 const int Day0Position[8] = {
   0,
-  241,  // Di 0h
-  478,  // Mi
-  706,  // Do
-  934,  // Fr
+  239,  // Di 0h
+  471,  // Mi
+  698,  // Do
+  929,  // Fr
   1178, // Sa
   1417, // So
   1672
 };
 const int StepWidth[7] = {
-  10,
-  10,
   9,
   9,
+  8,
+  8,
   10,
-  10,
+  9,
   10
 };
 int DayIndex = 0;
